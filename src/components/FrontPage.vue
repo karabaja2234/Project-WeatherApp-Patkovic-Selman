@@ -14,7 +14,7 @@
       <p class="mt-5 text-light">
         Already entered your city before?
       </p>
-      <router-link to="/forecast" class="btn btn-secondary">Check the weather forecast right away</router-link>
+      <button class="btn btn-secondary" @click="checkTheForecast">Check the weather forecast right away</button>
     </div>
   </div>
 </template>
@@ -74,7 +74,17 @@ export default {
           this.$router.push("forecast");
           document.getElementById('search_bar').reset()
         }
-      } 
+      }
+    },
+    checkTheForecast() {
+      if(this.$store.state.cities.length == 0) {
+        Toast.fire({
+          icon: "error",
+          title: "Your database is currently empty, please enter a city!",
+        });
+      } else {
+        this.$router.push("forecast");
+      }
     },
     print() {
       fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + name + '&appid=5874315343445491bc07e2559123999e')

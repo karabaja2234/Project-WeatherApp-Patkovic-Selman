@@ -1,28 +1,49 @@
 <template>
-  <div class="Forecast" :style="{ backgroundImage: 'url(' + require('@/images/forecastbg1.jpg') + ')', 
-                        backgroundRepeat: 'no-repeat', 
-                        backgroundSize: '1920px 1080px', 
-                        width: '100%', 
-                        minHeight: '100vh', 
-                        padding: '0', 
-                        margin: '0'}"
-  >
-  <div class="container d-flex flex-wrap justify-content-around" style="padding-top: 3%;">
-    <div class="row d-flex flex-wrap bg-dark align-items-center" v-for="(city, index1) in shownForecast" v-bind:key="index1" style="minHeight: 350px; maxHeight: 400px; minWidth: 500px; margin-bottom: 5%; border-radius: 15px">
-      <div class="col-6 d-flex flex-column bg-secondary p-4" :style="{ backgroundImage: 'url(' + require('@/images/morning.jpg') + ')', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', width: '220px', minHeight: '360px', borderRadius: '15px'}">
-        <p class="h2 text-light">{{ dayOfTheWeek }}</p>
-        <p class="h5">{{ date }}</p>
-        <p><i class="fas fa-map-marker-alt"></i> {{ names[shownForecast.indexOf(city)] }}</p>
-        <p class="text-light" style="font-size: 46px"> {{ Math.floor(city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].temperature - 273.15) }} &deg;C</p>
-        <p class="text-light" style="font-size: 26px"> {{ city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].mainDescription }}</p>
+  <div id="Forecast">
+  <div class="d-flex flex-wrap justify-content-start align-items-left" style="padding-top: 3%;">
+    <div class="wrapper" v-for="(city, index1) in shownForecast" v-bind:key="index1" style="">
+      <div class="todays-forecast" v-bind:style="[city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].mainDescription == 'Thunderstorm'  
+                                                          ? { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/thunderstorm.jpg') + ')'}
+                                                          : city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].mainDescription == 'Drizzle'
+                                                          ? { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/drizzle.jpg') + ')'}
+                                                          : city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].mainDescription == 'Clouds'
+                                                          ? { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/clouds.jpg') + ')'}
+                                                          : city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].mainDescription == 'Snow'
+                                                          ? { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/snow.jpg') + ')'}
+                                                          : city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].mainDescription == 'Clear'
+                                                          ? { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/clear.jpg') + ')'}
+                                                          : city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].mainDescription == 'Atmosphere'
+                                                          ? { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/atmosphere.jpg') + ')'}
+                                                          : city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].mainDescription == 'Rain'
+                                                          ? { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/rain.jpg') + ')'}
+                                                          : { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/bg2.jpg') + ')'}]" >
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <p class="h2 text-light">{{ dayOfTheWeek }}</p>
+          <p class="h5 text-light">{{ date }}</p>
+          <p class="text-light"><i class="fas fa-map-marker-alt"></i> {{ names[shownForecast.indexOf(city)] }}</p>
+        </div>
+        <div class="d-flex flex-column justify-content-center" style="margin-top: 10%; border-radius: 15px">
+          <p class="text-light" style="font-size: 36px"> {{ Math.floor(city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].temperature - 273.15) }} &deg;C</p>
+          <p class="text-light" style="font-size: 24px"> {{ city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].mainDescription }}</p>
+        </div>
       </div>
-      <div class="col-6 d-flex flex-column justify-content-start p-4" style="minHeight: 300px">
-        <p class="text-info">Description: {{ city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].sideDescription }}</p>
-        <p class="text-info">Humidity: {{ city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].humidity }}</p>
-        <p class="text-info">Wind: {{ city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].wind }} km/h</p>
-        <span v-for="(temperature, tempIndex2) in shownTemperatures[shownForecast.indexOf(city)]" v-bind:key="tempIndex2">
-          <div class="d-flex align-items-center">
-            <i class="fas fa-cloud mr-2 text-light"></i><font class="text-light">{{ Math.floor(temperature - 273.15) }} &deg;C</font>
+      <div class="d-flex flex-column justify-content-start p-4 bg-dark" style="minHeight: 250px; maxHeight: 350px; border-top-right-radius: 15px; border-bottom-right-radius: 15px">
+        <p class="text-light">DESCRIPTION: {{ city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].sideDescription }}</p>
+        <p class="text-light">HUMIDITY: {{ city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].humidity }} %</p>
+        <p class="text-light">WIND: {{ city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].wind }} km/h</p>
+        <span v-for="(forecast, tempIndex2) in shownFiveDayForecast[shownForecast.indexOf(city)]" v-bind:key="tempIndex2">
+          <div class="fiveDayForecast d-flex align-items-center justify-content-start mt-1 text-light" v-if="tempIndex2 != 0">
+            <i style="font-size: 18px" class="fas mr-3" :class="forecast.description == 'Thunderstorm' 
+                                          ? 'fa-poo-storm' 
+                                          : forecast.description == 'Clouds' ? 'fa-cloud'
+                                          : forecast.description == 'Drizzle' ? 'fa-cloud-rain'
+                                          : forecast.description == 'Snow' ? 'fa-snowflake'
+                                          : forecast.description == 'Clear' ? 'fa-sun'
+                                          : forecast.description == 'Atmosphere' ? 'fa-smog'
+                                          : forecast.description == 'Rain' ? 'fa-cloud-showers-heavy'
+                                          : null"></i>
+            <span style="font-size: 18px" class="mr-2">{{ Math.floor(forecast.temperature - 273.15) }}&deg;C</span>
+            <span style="font-size: 18px"> {{ nextFiveDays[tempIndex2 - 1]}}</span>
           </div>
         </span>
       </div>
@@ -37,8 +58,9 @@ export default {
   data() {
     return {
       forecast: [],
-      temperatures: [],
-      shownTemperatures: [],
+      fiveDayForecast: [],
+      nextFiveDays: [],
+      shownFiveDayForecast: [],
       shownForecast: [],
       names: [],
       day: {
@@ -47,6 +69,10 @@ export default {
         wind: "",
         mainDescription: "",
         sideDescription: ""
+      },
+      fiveDayInfo: {
+        description: "",
+        temperature: ""
       },
       date: "",
       dayOfTheWeek: ""
@@ -60,6 +86,10 @@ export default {
         wind: "",
         mainDescription: "",
         sideDescription: ""
+      }
+      this.fiveDayInfo = {
+        description: "",
+        temperature: ""
       }
     },
     getDateInfo() {
@@ -96,6 +126,27 @@ export default {
     }
   },
   created() {
+    let newDate = new Date;
+    let nextFiveDays = [newDate.getDay() + 1, newDate.getDay() + 2, newDate.getDay() + 3, newDate.getDay() + 4, newDate.getDay() + 5];
+    let i = 0;
+    nextFiveDays.forEach((day, index) => {
+       if(day == 8) {
+        this.nextFiveDays[i] = "Monday"; i++;
+       } else if(day == 2) {
+         this.nextFiveDays[i] = "Tuesday"; i++;
+       } else if(day == 3) {
+         this.nextFiveDays[i] = "Wednesday"; i++;
+       } else if(day == 4) {
+        this.nextFiveDays[i] = "Thursday"; i++;
+       } else if(day == 5) {
+         this.nextFiveDays[i] = "Friday"; i++;
+       } else if(day == 6) {
+         this.nextFiveDays[i] = "Saturday"; i++;
+       } else if(day == 7) {
+        this.nextFiveDays[i] = "Sunday"; i++;
+      }
+    })
+
     this.$store.state.cities.forEach(city => {
       fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + city.name + '&appid=5874315343445491bc07e2559123999e')                                                                       
       .then(response => response.json())
@@ -110,7 +161,11 @@ export default {
             mainDescription: data.list[i].weather[0].main,
             sideDescription: data.list[i].weather[0].description
           }
-          this.temperatures.push(this.day.temperature)
+          this.fiveDayInfo = {
+            description: this.day.mainDescription,
+            temperature: this.day.temperature
+          }
+          this.fiveDayForecast.push(this.fiveDayInfo)
           this.forecast.push(this.day)
           this.resetDayData();
           if(i == 0) {
@@ -120,19 +175,82 @@ export default {
           }
         }
         this.shownForecast.push(this.forecast)
-        this.shownTemperatures.push(this.temperatures)
+        this.shownFiveDayForecast.push(this.fiveDayForecast)
         this.forecast = []
-        this.temperatures = []
+        this.fiveDayForecast = []
       })
     })
     this.getDateInfo();
-    console.log(this.shownForecast)
-    console.log(this.shownTemperatures)
-    console.log(this.date)
   }
 }
 </script>
 
 <style scoped>
+#Forecast {
+  background-image: url('../images/bg2.jpg');
+  background-repeat: no-repeat;
+  background-size: auto;
+  min-height: 100vh;
+}
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px; 
+  max-height: 350px; 
+  min-width: 600px; 
+  margin-bottom: 5%; 
+  border-radius: 15px;
+}
+.todays-forecast {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-repeat: no-repeat;
+  background-size: cover; 
+  width: 220px; 
+  height: 350px;
+  border-radius: 10px;
+  background-color: rgb(0,0,0, 0.3); 
+  padding: 4%;
+  -webkit-transition: 200ms ease;
+	-o-transition: 200ms ease;
+	transition: 200ms ease;
+  cursor: pointer;
+}
+
+.todays-forecast:hover {
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+  -webkit-box-shadow: 0 0 40px -5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 40px -5px rgba(0, 0, 0, 0.2)
+}
+
+.fiveDayForecast:hover {
+  -webkit-transform: scale(1.1);
+	    -ms-transform: scale(1.1);
+	        transform: scale(1.1);
+  -webkit-box-shadow: 0 0 40px -5px rgba(0, 0, 0, 0.2);
+	        box-shadow: 0 0 40px -5px rgba(0, 0, 0, 0.2);
+  color: rgb(41, 43, 44) !important;
+  background-color: rgb(247, 247, 247);
+}
+
+.fiveDayForecast {
+-webkit-transition: 200ms ease;
+	-o-transition: 200ms ease;
+	transition: 200ms ease;
+  border-radius: 10px;
+  padding-left: 5%;
+}
+
+@media screen and (max-width: 650px){
+  .wrapper {
+    flex-direction: column;
+    height: 100%
+  }
+
+}
 
 </style>

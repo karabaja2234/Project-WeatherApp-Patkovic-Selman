@@ -1,7 +1,7 @@
 # Weather App
 
 ## Technologies used
-```
+
 :heavy_check_mark: Vue.js
 
 :heavy_check_mark: JavaScript
@@ -11,7 +11,6 @@
 :heavy_check_mark: API: Google places API, Google maps JavaScript API, OpenWeather API
 
 :heavy_check_mark: Other libraries: Bootstrap, Fontawesome
-```
 
 ## Project setup
 ```

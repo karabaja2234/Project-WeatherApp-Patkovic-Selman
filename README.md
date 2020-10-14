@@ -21,6 +21,8 @@ npm run build - compiles and minifies for production
 
 ## Project description/benefits
 
+This project was originally made in Vanilla JavaScript, but I decided to migrate it to Vue.js.
+
 - Ability of adding multiple cities and getting forecast of each one of them
 - Autofill searching of the cities
 - Adding and deleting your personal cities

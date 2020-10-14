@@ -1,5 +1,5 @@
 <template>
-  <div class="Front" :style="{ backgroundImage: 'url(' + require('@/images/frontpagebg.jpg') + ')', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', width: '100%', height: '100vh', padding: '0', margin: '0'}">
+  <div class="Front" :style="{ backgroundImage: 'url(' + require('@/images/backgrounds/frontpagebg.jpg') + ')', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', width: '100%', height: '100vh', padding: '0', margin: '0'}">
     <div class="container d-flex flex-column align-items-center justify-content-center" style="height: 100vh">
       <h2 class="text-light text-center">
         Welcome to <font class="text-info">cleverWeather!</font>
@@ -51,7 +51,6 @@ export default {
           this.city.id = this.generateID(26);
           this.$store.commit("addToCities", this.city);
           this.$router.push("forecast");
-          document.getElementById('search_bar').reset()
         }
       } else {
         this.$store.state.cities.forEach((city) => {
@@ -71,7 +70,6 @@ export default {
           this.city.id = this.generateID(26);
           this.$store.commit("addToCities", this.city);
           this.$router.push("forecast");
-          document.getElementById('search_bar').reset()
         }
       }
     },
@@ -84,16 +82,10 @@ export default {
       } else {
         this.$router.push("forecast");
       }
-    },
-    print() {
-      fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + name + '&appid=5874315343445491bc07e2559123999e')
-      .then(response => response.json())
-      .then(data => console.log(data))
     }
   },
   created() {
     this.$store.commit('saveData');
-    console.log(this.$store.cities)
   },
 }
 </script>

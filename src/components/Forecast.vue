@@ -4,20 +4,20 @@
     <div class="container mainWrapper">
       <div class="wrapper" v-for="(city, index1) in shownForecast" v-bind:key="index1" style="">
         <div class="todays-forecast" v-bind:style="[city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].mainDescription == 'Thunderstorm'  
-                                                            ? { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/thunderstorm.jpg') + ')'}
+                                                            ? { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/weather/thunderstorm.jpg') + ')'}
                                                             : city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].mainDescription == 'Drizzle'
-                                                            ? { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/drizzle.jpg') + ')'}
+                                                            ? { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/weather/drizzle.jpg') + ')'}
                                                             : city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].mainDescription == 'Clouds'
-                                                            ? { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/clouds.jpg') + ')'}
+                                                            ? { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/weather/clouds.jpg') + ')'}
                                                             : city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].mainDescription == 'Snow'
-                                                            ? { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/snow.jpg') + ')'}
+                                                            ? { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/weather/snow.jpg') + ')'}
                                                             : city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].mainDescription == 'Clear'
-                                                            ? { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/clear.jpg') + ')'}
+                                                            ? { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/weather/clear.jpg') + ')'}
                                                             : city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].mainDescription == 'Atmosphere'
-                                                            ? { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/atmosphere.jpg') + ')'}
+                                                            ? { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/weather/atmosphere.jpg') + ')'}
                                                             : city[shownForecast.indexOf(city) - shownForecast.indexOf(city)].mainDescription == 'Rain'
-                                                            ? { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/rain.jpg') + ')'}
-                                                            : { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/bg2.jpg') + ')'}]" >
+                                                            ? { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/weather/rain.jpg') + ')'}
+                                                            : { backgroundImage: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + require('@/images/backgrounds/forecastbg.jpg') + ')'}]" >
           <div class="todays-forecast-top">
             <p class="todays-day-of-week">{{ dayOfTheWeek }}</p>
             <p class="todays-date">{{ date }}</p>
@@ -153,7 +153,7 @@ export default {
 
 <style scoped>
 #Forecast {
-  background-image: url('../images/bg2.jpg');
+  background-image: url('../images/backgrounds/forecastbg.jpg');
   background-repeat: repeat-y;
   background-size: "100% auto";
   display: flex;
@@ -327,7 +327,7 @@ export default {
   }
   .todays-location {
     color: rgb(247, 247, 247);
-    font-size: 16px;
+    font-size: 14px;
     text-align: center;
   }
   .todaysTemperature {

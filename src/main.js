@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import DigitalClock from "vue-digital-clock";
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -19,6 +20,8 @@ const Toast = Swal.mixin({
     toast.addEventListener("mouseleave", Swal.resumeTimer);
   },
 });
+
+Vue.use(DigitalClock)
 
 window.Swal = Swal;
 window.Toast = Toast;

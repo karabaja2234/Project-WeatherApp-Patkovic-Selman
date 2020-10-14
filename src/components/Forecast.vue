@@ -42,9 +42,10 @@
                                             : forecast.description == 'Clear' ? 'fa-sun'
                                             : forecast.description == 'Atmosphere' ? 'fa-smog'
                                             : forecast.description == 'Rain' ? 'fa-cloud-showers-heavy'
-                                            : null"></i>
-              <span style="font-size: 16px" class="mr-2">{{ Math.floor(forecast.temperature - 273.15) }}&deg;C</span>
-              <span style="font-size: 16px"> {{ nextFiveDays[tempIndex2 - 1]}}</span>
+                                            : null">
+              </i>
+              <span class="nextFiveDaysText mr-2">{{ Math.floor(forecast.temperature - 273.15) }}&deg;C</span>
+              <span class="nextFiveDaysText"> {{ nextFiveDays[tempIndex2 - 1]}}</span>
             </div>
           </span>
         </div>
@@ -68,39 +69,16 @@ export default {
       shownFiveDayForecast: [],
       shownForecast: [],
       names: [],
-      day: {
-        temperature: "",
-        humidity: "",
-        wind: "",
-        mainDescription: "",
-        sideDescription: ""
-      },
-      fiveDayInfo: {
-        description: "",
-        temperature: ""
-      },
       date: "",
       dayOfTheWeek: ""
     }
   },
   methods: {
-    resetDayData() {
-      this.day = {
-        temperature: "",
-        humidity: "",
-        wind: "",
-        mainDescription: "",
-        sideDescription: ""
-      }
-      this.fiveDayInfo = {
-        description: "",
-        temperature: ""
-      }
-    },
     getDateInfo() {
       let newDate = new Date;
       let dayNumber = newDate.getDay();
       let day = "";
+      
       if(dayNumber == 1) this.dayOfTheWeek = "Monday";
       else if(dayNumber == 2) this.dayOfTheWeek = "Tuesday";
       else if(dayNumber == 3) this.dayOfTheWeek = "Wednesday";
@@ -126,7 +104,6 @@ export default {
 
       let dayOfTheMonth = newDate.getDate();
       let year = newDate.getFullYear();
-
       this.date = `${dayOfTheMonth} ${month} ${year}`
     }
   },
@@ -151,7 +128,6 @@ export default {
         this.nextFiveDays[i] = "Sunday"; i++;
       }
     })
-
     this.$store.state.cities.forEach(city => {
       fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + city.name + '&appid=5874315343445491bc07e2559123999e')                                                                       
       .then(response => response.json())
@@ -159,25 +135,10 @@ export default {
         this.names.push(city.name)
         let i = 0;
         while(i <= data.list.length) {
-          this.day = {
-            temperature: data.list[i].main.temp,
-            humidity: data.list[i].main.humidity,
-            wind: data.list[i].wind.speed,
-            mainDescription: data.list[i].weather[0].main,
-            sideDescription: data.list[i].weather[0].description
-          }
-          this.fiveDayInfo = {
-            description: this.day.mainDescription,
-            temperature: this.day.temperature
-          }
-          this.fiveDayForecast.push(this.fiveDayInfo)
-          this.forecast.push(this.day)
-          this.resetDayData();
-          if(i == 0) {
-            i+=7
-          } else {
-            i+=8
-          }
+          this.fiveDayForecast.push({description: data.list[i].weather[0].main, temperature: data.list[i].main.temp})
+          this.forecast.push({temperature: data.list[i].main.temp, humidity: data.list[i].main.humidity, wind: data.list[i].wind.speed,
+                              mainDescription: data.list[i].weather[0].main, sideDescription: data.list[i].weather[0].description})
+          i == 0 ? i+=7 : i+=8;
         }
         this.shownForecast.push(this.forecast)
         this.shownFiveDayForecast.push(this.fiveDayForecast)
@@ -232,14 +193,12 @@ export default {
 	transition: 200ms ease;
   cursor: pointer;
 }
-
 .todays-forecast-top {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-
 .todays-forecast-bottom {
   display: flex;
   flex-direction: column;
@@ -248,17 +207,14 @@ export default {
   margin-top: 10%; 
   border-radius: 15px;
 }
-
 .todays-day-of-week {
   color: rgb(247, 247, 247);
   font-size: 32px;
 }
-
 .todays-date {
   color: rgb(247, 247, 247);
   font-size: 20px;
 }
-
 .todays-location {
   color: rgb(247, 247, 247);
   font-size: 16px;
@@ -266,17 +222,14 @@ export default {
   padding-left: 5%;
   padding-right: 5%;
 }
-
 .todaysTemperature {
   color: rgb(247, 247, 247);
   font-size: 30px;
 }
-
 .todaysDescription {
   color: rgb(247, 247, 247);
   font-size: 24px;
 }
-
 .todays-forecast:hover {
   -webkit-transform: scale(1.1);
   -ms-transform: scale(1.1);
@@ -284,7 +237,6 @@ export default {
   -webkit-box-shadow: 0 0 40px -5px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 40px -5px rgba(0, 0, 0, 0.2)
 }
-
 .nextFiveDayForecast {
   display: flex;
   flex-direction: column;
@@ -296,7 +248,9 @@ export default {
   border-top-right-radius: 15px; 
   border-bottom-right-radius: 15px;
 }
-
+.nextFiveDaysText {
+  font-size: 16px
+}
 .fiveDayForecast:hover {
   -webkit-transform: scale(1.1);
 	    -ms-transform: scale(1.1);
@@ -306,7 +260,6 @@ export default {
   color: rgb(41, 43, 44) !important;
   background-color: rgb(247, 247, 247);
 }
-
 .fiveDayForecast {
 -webkit-transition: 200ms ease;
 	-o-transition: 200ms ease;
@@ -390,6 +343,8 @@ export default {
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
   }
+  .nextFiveDaysText {
+    font-size: 14px;
+  }
 }
-
 </style>

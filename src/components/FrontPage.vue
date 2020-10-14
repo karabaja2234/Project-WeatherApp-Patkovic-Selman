@@ -1,15 +1,14 @@
 <template>
   <div class="Front" :style="{ backgroundImage: 'url(' + require('@/images/frontpagebg.jpg') + ')', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', width: '100%', height: '100vh', padding: '0', margin: '0'}">
     <div class="container d-flex flex-column align-items-center justify-content-center" style="height: 100vh">
-      <h1 class="text-light text-center">
+      <h2 class="text-light text-center">
         Welcome to <font class="text-info">cleverWeather!</font>
-      </h1>
-      <p class="mt-5 text-light">
-        Enter the name of your city:
-      </p>
-      <div class="row d-flex flex-wrap align-items-center justify-content-center">
-        <input type="text" id="search_bar" class="form-control" v-model="city.name">
-        <button class="btn btn-info mt-4" @click="addCity">Continue</button>
+      </h2>
+      <div class="d-flex flex-column align-items-center justify-content-center text-center">
+        <p class="mt-4 text-light">Enter the name of your city:</p>
+        <input type="text" id="search_bar" class="form-control ml-4 mr-4" v-model="city.name">
+        <p class="text-light text-center mt-2" style="font-size: 14px">Note: If the autofill does not work, refresh the page.</p>
+        <button class="btn btn-info mt-2" @click="addCity">Continue</button>
       </div>
       <p class="mt-5 text-light">
         Already entered your city before?
@@ -25,7 +24,7 @@ export default {
   data() {
     return {
       city: {
-        name: "",
+        name: null,
         id: ""
       },
       repeat: false

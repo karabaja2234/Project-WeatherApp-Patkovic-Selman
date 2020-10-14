@@ -28,6 +28,7 @@ window.Toast = Toast;
 
 Vue.component('Forecast', require('./components/Forecast.vue').default);
 Vue.component('FrontPage', require('./components/FrontPage.vue').default);
+Vue.component('citiesList', require('./components/citiesList.vue').default);
 
 Vue.config.productionTip = false
 

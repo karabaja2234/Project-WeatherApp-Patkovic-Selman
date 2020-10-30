@@ -112,6 +112,8 @@ export default {
     let nextFiveDays = [newDate.getDay() + 1, newDate.getDay() + 2, newDate.getDay() + 3, newDate.getDay() + 4, newDate.getDay() + 5];
     let i = 0;
     nextFiveDays.forEach((day, index) => {
+      day > 8 ? day = day%8 + 1 : null;
+      console.log(day + " - " + index)
        if(day == 8) {
         this.nextFiveDays[i] = "Monday"; i++;
        } else if(day == 2) {
@@ -128,10 +130,12 @@ export default {
         this.nextFiveDays[i] = "Sunday"; i++;
       }
     })
+    console.log(this.nextFiveDays)
     this.$store.state.cities.forEach(city => {
       fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + city.name + '&appid=5874315343445491bc07e2559123999e')                                                                       
       .then(response => response.json())
       .then(data => {
+        console.log(data)
         this.names.push(city.name)
         let i = 0;
         while(i <= data.list.length) {
